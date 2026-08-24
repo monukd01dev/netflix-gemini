@@ -4,8 +4,10 @@ import DynamicTyper from '../components/gemini/DynamicTyper';
 import GeminiGradientBackground from '../components/gemini/GeminiGradientBackground';
 import GeminiSearchBar from '../components/gemini/GeminiSearchBar';
 import { DYNAMIC_TYPER_CONFIG } from '../utils/constants';
+import useBrowsePage from '../hooks/useBrowsePage';
 function BrowsePage() {
 
+    const {handleSearch} = useBrowsePage()
 
     return (
         <GeminiGradientBackground>
@@ -15,7 +17,7 @@ function BrowsePage() {
                 mode={DYNAMIC_TYPER_CONFIG.MODE}
                 speed={DYNAMIC_TYPER_CONFIG.SPEED}
             />
-            <GeminiSearchBar />
+            <GeminiSearchBar onSearch={handleSearch} />
         </GeminiGradientBackground>
     );
 }

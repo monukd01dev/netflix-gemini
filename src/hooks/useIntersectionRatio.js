@@ -7,7 +7,6 @@ function useIntersectionRatio() {
     useEffect(() => {
         const target = observerTarget.current;
         const thresholds = Array.from({ length: 51 }, (_, index) => (index + index) / 100)
-        console.log(thresholds)
         const observer = new IntersectionObserver(([entry]) => {
             setRatio(entry.intersectionRatio)
         }, {

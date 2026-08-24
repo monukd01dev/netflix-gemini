@@ -25,3 +25,20 @@ export const passwordPrimitive = z.string({ required_error: VALIDATION_ERRORS.PA
     .refine(val => /[a-z]/.test(val), VALIDATION_ERRORS.PASSWORD_NO_LOWER)
     .refine(val => /\d/.test(val), VALIDATION_ERRORS.PASSWORD_NO_NUMBER)
     .refine(val => /[@$!%*?&]/.test(val), VALIDATION_ERRORS.PASSWORD_NO_SPECIAL);
+
+// for GeminiSearch 
+//this only validate and sanitize the user Input but not the prompt Injection prompt Injection handled at the instruction level
+export const searchPrimitive = z.string({required_error : VALIDATION_ERRORS.SEARCH_REQUIRED})
+    .trim()
+    .min(2,VALIDATION_ERRORS.SEARCH_TOO_SHORT)
+    .max(300, VALIDATION_ERRORS.SEARCH_TOO_LONG)
+    .refine(
+        val => !/[<>{}]/.test(val), 
+        VALIDATION_ERRORS.SEARCH_INVALID_CHARS
+    )
+    // Block hidden control characters (ASCII 0-31) except newline
+    // The Ultimate Optimized & Secure Approach
+.refine(
+    val => !/[\x00-\x09\x0B-\x1F]/u.test(val),
+    "Invalid characters detected."
+);

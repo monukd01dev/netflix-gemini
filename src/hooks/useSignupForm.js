@@ -27,10 +27,10 @@ export function useSignupForm() {
             email: emailRef.current.value, 
             password: passwordRef.current.value 
         };
-        console.log(rawData)
+
         const validationResponse = runValidator(registrationSchema, rawData);
-        console.log(validationResponse)
-        // 3. CRITICAL FIX: The early return
+
+        // 3. The early return
         if (!validationResponse.success) {
             setFormErrors(validationResponse.errors);
             return; // If you forget this, Firebase tries to create an account anyway!

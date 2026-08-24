@@ -1,26 +1,17 @@
-import { useState } from 'react';
-import { ArrowUp } from 'lucide-react';
+import { ArrowUp, AlertCircle } from 'lucide-react'; 
+import useGeminiSearchBar from '../../hooks/useGeminiSearchBar';
 
 function GeminiSearchBar({ onSearch }) {
-    const [query, setQuery] = useState("");
-    const [isFocused, setIsFocused] = useState(false);
-
-    const handleSubmit = (e) => {
-        e.preventDefault(); 
-        if (query.trim()) {
-            onSearch(query);
-            setQuery(""); 
-        }
-    };
+    const { isFocused, setIsFocused, handleSubmit, query, setQuery, isDisabled, searchBarError } = useGeminiSearchBar(onSearch);
 
     return (
         <div className="w-full max-w-2xl md:max-w-3xl mx-auto px-4 sm:px-6">
             
             {/* THE ANIMATED RGB GRADIENT BORDER */}
             <div 
-                className={`relative rounded-full p-[2px] transition-all duration-500 ${
+                className={`relative rounded-full p-0.5 transition-all duration-500 ${
                     isFocused 
-                    ? "bg-gradient-to-r from-blue-500 via-purple-500 to-fuchsia-500 animate-rgb-border shadow-[0_0_20px_rgba(168,85,247,0.3)]" 
+                    ? "bg-linear-to-r from-blue-500 via-purple-500 to-fuchsia-500 animate-rgb-border shadow-[0_0_20px_rgba(168,85,247,0.3)]" 
                     : "bg-zinc-700/50 hover:bg-zinc-600"
                 }`}
             >
@@ -42,11 +33,11 @@ function GeminiSearchBar({ onSearch }) {
                     <div className="flex items-center gap-2 md:gap-3 shrink-0 text-zinc-400">
                         <button 
                             type="submit" 
-                            disabled={!query.trim()}
+                            disabled={isDisabled}
                             className={`w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
-                                query.trim() 
-                                ? "bg-[#1b66d2] text-white hover:bg-[#1a73e8] cursor-pointer shadow-md" 
-                                : "bg-transparent text-zinc-600 cursor-not-allowed"
+                                isDisabled 
+                                ? "bg-transparent text-zinc-600 cursor-not-allowed"
+                                : "bg-[#1b66d2] text-white hover:bg-[#1a73e8] cursor-pointer shadow-md" 
                             }`}
                         >
                             <ArrowUp className="w-4 h-4 md:w-5 md:h-5" strokeWidth={2.5} />
@@ -54,6 +45,15 @@ function GeminiSearchBar({ onSearch }) {
                     </div>
                 </form>
             </div>
+            
+            {/* 🚨 PREMIUM ERROR UI YAHAN HAI 🚨 */}
+            {searchBarError?.searchQuery?.[0] && (
+                <div className="flex items-center gap-2 mt-3 px-4 text-red-400/90 text-sm font-medium animate-in fade-in slide-in-from-top-2 duration-300">
+                    <AlertCircle className="w-4 h-4 shrink-0" />
+                    <span>{searchBarError.searchQuery[0]}</span>
+                </div>
+            )}
+            
         </div>
     );
 }

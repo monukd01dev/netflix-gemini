@@ -14,7 +14,7 @@ function useHeroBanner() {
             try {
                 // const data = await fetchRegionalMovies();
                 const data = await fetchNowPlayingMovies();
-                console.log(data)
+                
                 setMoviesCategory(MOVIES_CATEGORY.NOW_PLAYING_MOVIES,data?.results);
             } catch (error) {
                 console.error("Failed to load hero banner movies:", error);
@@ -37,8 +37,7 @@ function useHeroBanner() {
 
     }, [nowPlayingMovies]); // Dependency array: Only recalculate if the movie list changes
 
-    //! clear log
-    console.log(featuredMovie)
+    
 
     return {
         nowPlayingMovies,
