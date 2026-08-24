@@ -18,6 +18,7 @@ function useGeminiSearchBar(onSearch) {
             if (validationResponse.success) {
                 if (searchBarError) setSearchBarError(null);
                 console.log("[SUCCESS BLOCK] ", validationResponse)
+                //we dont need await here 
                 onSearch(query);
                 setQuery("");
             }
@@ -25,7 +26,7 @@ function useGeminiSearchBar(onSearch) {
                 console.log("[ERROR BLOCK] ", validationResponse)
                 setSearchBarError(validationResponse.errors)
             }
-            // console.log(validationResponse)
+            
 
         }
     };

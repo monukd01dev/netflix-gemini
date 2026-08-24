@@ -22,3 +22,36 @@
   background-size: 300% 300%;
   animation: pan-gradient 3s linear infinite;
 }
+
+/* AI Liquid Blob Loader Animation */
+.ai-blob-loader {
+  background: linear-gradient(
+    135deg,
+    #4285F4 0%,   /* Google Blue */
+    #EA4335 25%,  /* Google Red */
+    #FBBC05 50%,  /* Google Yellow */
+    #34A853 75%,  /* Google Green */
+    #4285F4 100%
+  );
+  background-size: 400% 400%;
+  /* Ye line 2 animations ko ek sath chalati hai: Shape morphing aur Color shifting */
+  animation: 
+    morphing-blob 4s ease-in-out infinite, 
+    gradient-shift 4s ease infinite;
+}
+
+/* 1. Shape Morphing (The Magic Trick) */
+@keyframes morphing-blob {
+  0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+  25% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+  50% { border-radius: 50% 60% 30% 60% / 40% 50% 60% 30%; }
+  75% { border-radius: 70% 30% 50% 50% / 30% 40% 50% 60%; }
+  100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+}
+
+/* 2. Color Gradient Shifting */
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
