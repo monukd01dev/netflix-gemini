@@ -1,4 +1,4 @@
-import axios from 'axios';
+
 import tmdb from '../utils/axios';
 import requests from '../utils/tmdbRequests';
 
@@ -52,9 +52,9 @@ export const fetchNowPlayingMovies = async () => {
     }
 }
 
-export const fetchMovieVideos = async (movie_id, lang = "en-US") => {
+export const fetchMovieVideos = async (movieID, lang = "en-US") => {
     try {
-        const response = await tmdb.get(`/movie/${movie_id}/videos`, {
+        const response = await tmdb.get(`/movie/${movieID}/videos`, {
             params: {
                 language: lang,
             }
@@ -65,3 +65,48 @@ export const fetchMovieVideos = async (movie_id, lang = "en-US") => {
         console.error("TMDB Fetch Error:", error);
     }
 }
+
+const fetchSingleMovieByName = async (movieName) => {
+
+        //making the name url-safe first
+        const safeQuery = encodeURIComponent(movieName);
+        //fetching the movie
+        const response = await tmdb.get('/search/movie', {
+            params: {
+                query: safeQuery,
+                include_adult: false,
+                language: 'en-US',
+                page: 1
+            }
+        })
+        return response.data
+
+}
+
+
+export const fetchMultipleMoviesByName = async (movieNamesArray) => {
+    try {
+        //creating promises array from movieNamesArray
+        const promises = movieNamesArray.map(movieName => fetchSingleMovieByName(movieName));
+
+        //fetching all the movies data 
+        const result = await Promise.allSettled(promises);
+
+        //filtering the Results
+        const successfulData = result
+                               .filter(res => res.status === "fulfilled" && res.value?.results?.length > 0)
+                               .map(res => res.value.results)
+        return {
+            success : true,
+            data : successfulData
+        }
+    } catch (error) {
+        console.error("TMDB Batch Fail Error : ", error)
+        return {
+            success : false,
+            error : error
+        }
+    }
+}
+
+

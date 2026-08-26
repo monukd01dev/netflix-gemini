@@ -12,7 +12,7 @@ function ScrollToTopButton({ progress }) {
                 fixed z-50 flex items-center justify-center rounded-full cursor-pointer shadow-xl 
                 transition-all duration-300 ease-out
                 bottom-4 right-4 w-11 h-11 
-                md:bottom-8 md:right-8 md:w-14 md:h-14 
+                md:bottom-6 md:right-6 md:w-14 md:h-14 
                 hover:scale-110 hover:shadow-red-500/20 
                 active:scale-90 
                 bg-black/40 backdrop-blur-md border border-white/10

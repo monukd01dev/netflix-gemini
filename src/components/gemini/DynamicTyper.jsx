@@ -63,7 +63,7 @@ function DynamicTyper({
     return (
 
         <div className="flex min-w-50 sm:w-fit justify-start sm:justify-center px-4 sm:px-6 sm:mb-3  ">
-            <div className="flex items-center justify-start  sm:min-w-[380px] md:min-w-[400px]  h-[3rem] sm:h-[4rem] text-lg sm:text-2xl md:text-3xl font-bold text-white overflow-hidden">
+            <div className="flex items-center justify-start  sm:min-w-95 md:min-w-100  h-12 sm:h-16 text-lg sm:text-2xl md:text-3xl font-bold text-white overflow-hidden">
                 <span className="mr-2 whitespace-nowrap">{fixedText}</span>
                 <span className="text-blue-400 whitespace-nowrap">
                     {displayText}

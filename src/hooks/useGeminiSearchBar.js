@@ -9,29 +9,29 @@ function useGeminiSearchBar(onSearch) {
     const [searchBarError, setSearchBarError] = useState(null);
     const isDisabled = query.trim().length < 2;
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        if (query.trim()) {
-            // validate the form
-            const validationResponse = runValidator(aiSearchSchema, { searchQuery: query })
 
-            if (validationResponse.success) {
-                if (searchBarError) setSearchBarError(null);
-                console.log("[SUCCESS BLOCK] ", validationResponse)
-                //we dont need await here 
-                onSearch(query);
-                setQuery("");
-            }
-            else {
-                console.log("[ERROR BLOCK] ", validationResponse)
-                setSearchBarError(validationResponse.errors)
-            }
-            
+        //early return if query is not valid
+        //why this is important cause even if the button is disabled if user pressEnter form will submit 
+        if (isDisabled) return;
 
+        // validate the form
+        const validationResponse = runValidator(aiSearchSchema, { searchQuery: query })
+
+        //result object pattern failure actions
+        if (!validationResponse.success) {
+            console.log("[ERROR BLOCK] ", validationResponse)
+            setSearchBarError(validationResponse.errors)
+            return;
         }
-    };
 
+        if (searchBarError) setSearchBarError(null);
+        //await here is for the UX, so user can see its searched query and it removed after the after successfull search
+        await onSearch(query);
+        setQuery("");
 
+    }
 
     return {
         isFocused,
@@ -40,7 +40,8 @@ function useGeminiSearchBar(onSearch) {
         setQuery,
         query,
         isDisabled,
-        searchBarError
+        searchBarError,
+        setSearchBarError,
     }
 }
 

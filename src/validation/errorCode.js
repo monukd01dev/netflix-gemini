@@ -25,3 +25,11 @@ export const VALIDATION_ERRORS = Object.freeze({
   SEARCH_TOO_LONG: "Search query is too long. Max 300 characters allowed.",
   SEARCH_INVALID_CHARS: "Special characters like <, >, or { } are not allowed for security reasons."
 });
+
+export const AI_ERROR_MESSAGES = Object.freeze({
+    AI_RATE_LIMIT: "API Limit Reached. Please try again later.",
+    AI_AUTH_FAILED: "Authentication Failed. Check API Key.",
+    AI_MODEL_NOT_FOUND: "AI Model is currently down.",
+    // The Fallback / Default Message
+    DEFAULT: "Something went wrong with AI. Please try again." 
+});

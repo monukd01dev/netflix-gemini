@@ -3,7 +3,7 @@
 function GeminiGradientBackground({children}) {
   return (
     // 1. Main wrapper: Black background, screen height, aur overflow-hidden (taaki glows bahar na nikle)
-        <div className="relative w-full min-h-screen bg-[#0B0F19] overflow-hidden flex flex-col items-center pt-50 md:pt-65">
+        <div className="relative w-full min-h-screen bg-[#0B0F19] overflow-hidden flex flex-col items-center pb-10">
             
             {/* ========================================= */}
             {/* 2. GEMINI STYLE MESH GRADIENT GLOWS (BACKGROUND) */}
